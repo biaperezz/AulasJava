@@ -1,0 +1,37 @@
+1- Implemente uma classe Lista que use um vetor de inteiros para armazenar até 5 elementos.
+Adicione os métodos inserir(int valor) e mostrar().
+
+public class Lista {
+    private int[] elementos = new int[5]; 
+    private int tamanho = 0;
+
+    public void inserir(int valor) {
+        if (tamanho < elementos.length) {
+            elementos[tamanho] = valor;
+            tamanho++;
+        } else {
+            System.out.println("Lista cheia! Não é possível inserir mais elementos.");
+        }
+    }
+
+    public void mostrar() {
+        System.out.print("Elementos da lista: ");
+        for (int i = 0; i < tamanho; i++) {
+            System.out.print(elementos[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Lista lista = new Lista();
+
+        lista.inserir(10);
+        lista.inserir(20);
+        lista.inserir(30);
+        lista.inserir(40);
+        lista.inserir(50);
+        lista.inserir(60);
+
+        lista.mostrar();
+    }
+}
