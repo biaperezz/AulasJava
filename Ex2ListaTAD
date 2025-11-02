@@ -1,9 +1,11 @@
 2- Crie uma classe Pilha que permita empilhar e desempilhar valores inteiros.
 Use os métodos empilhar(int valor) e desempilhar().
 
-public class Pilha {
+package PilhaEx;
+
+public class Ativ2 {
     private int[] elementos = new int[5];
-    private int topo = -1; 
+    private int topo = -1;
 
     public void empilhar(int valor) {
         if (topo < elementos.length - 1) {
@@ -24,3 +26,12 @@ public class Pilha {
             return -1;
         }
     }
+
+    public void mostrar() {
+        System.out.print("Pilha: ");
+        for (int i = 0; i <= topo; i++) {
+            System.out.print(elementos[i] + " ");
+        }
+        System.out.println(); 
+    }
+}
