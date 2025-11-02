@@ -1,10 +1,10 @@
 3- Implemente uma classe Fila que use um vetor de inteiros para simular uma fila de até 5 posições.
 Inclua os métodos enfileirar(int valor) e desenfileirar().
-
 package PilhaEx;
 
-public class Ativ3 {
-	private int[] elementos = new int[5];
+public class Fila {
+	private final int CAPACIDADE = 5;
+	private int[] elementos = new int[CAPACIDADE];
 	private int inicio = 0;
 	private int fim = 0;
 	private int tamanho = 0;
@@ -14,8 +14,9 @@ public class Ativ3 {
 			elementos[fim] = valor;
 			fim = (fim + 1) % elementos.length;
 			tamanho++;
+			System.out.println("-> Enfileirado " + valor + " no final.");
 		} else {
-			System.out.println("A fila está cheia!");
+			System.out.println("A Fila esta cheia!");
 		}
 	}
 
@@ -26,16 +27,27 @@ public class Ativ3 {
 			tamanho--;
 			return valor;
 		} else {
-			System.out.println("A fila está vazia!");
+			return -1;
+		}
+	}
+
+	public int verInicio() {
+		if (tamanho > 0) {
+			return elementos[inicio];
+		} else {
 			return -1;
 		}
 	}
 
 	public void mostrar() {
-		System.out.println("Fila: ");
+		System.out.print("Fila [Inicio -> Fim]: ");
+		if (tamanho == 0) {
+			System.out.println("Vazia");
+			return;
+		}
 		for (int i = 0; i < tamanho; i++) {
 			int indice = (inicio + i) % elementos.length;
-			System.out.println(elementos[indice] + " ");
+			System.out.print(elementos[indice] + (i < tamanho - 1 ? " | " : ""));
 		}
 		System.out.println();
 	}
