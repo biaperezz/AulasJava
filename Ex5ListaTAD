@@ -1,0 +1,217 @@
+package PilhaEx;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Principal {
+
+    private static final Scanner scanner = new Scanner(System.in);
+    private static final ListaSimples lista = new ListaSimples();
+    private static final Pilha pilha = new Pilha();
+    private static final Fila fila = new Fila();
+
+    public static void main(String[] args) {
+        int opcao;
+
+        do {
+            exibirMenuPrincipal();
+            try {
+                opcao = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (opcao) {
+                    case 1:
+                        menuLista();
+                        break;
+                    case 2:
+                        menuPilha();
+                        break;
+                    case 3:
+                        menuFila();
+                        break;
+                    case 0:
+                        System.out.println("\nPrograma encerrado. Ate mais!");
+                        break;
+                    default:
+                        System.out.println("\nOpcao invalida. Tente novamente.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("\nEntrada invalida. Digite um numero para a opcao.");
+                scanner.nextLine(); // Limpa a entrada invalida
+                opcao = -1;
+            }
+        } while (opcao != 0);
+
+        scanner.close();
+    }
+
+    private static void exibirMenuPrincipal() {
+        System.out.println("\n==================================");
+        System.out.println("       TESTE DE ESTRUTURAS        ");
+        System.out.println("==================================");
+        System.out.println("1. Testar Lista Simples (Array)");
+        System.out.println("2. Testar Pilha (LIFO)");
+        System.out.println("3. Testar Fila (FIFO)");
+        System.out.println("0. Sair");
+        System.out.print("Escolha uma opcao: ");
+    }
+
+    private static int lerValor() {
+        while (!scanner.hasNextInt()) {
+            System.out.println("Entrada invalida. Digite um numero inteiro.");
+            scanner.next(); // Consome a entrada invalida
+            System.out.print("Digite o valor: ");
+        }
+        int valor = scanner.nextInt();
+        scanner.nextLine();
+        return valor;
+    }
+    private static void menuLista() {
+        int opcao;
+        do {
+            System.out.println("\n--- MENU LISTA ---");
+            System.out.println("1. Adicionar elemento");
+            System.out.println("2. Remover elemento (por indice)");
+            System.out.println("3. Exibir Lista");
+            System.out.println("0. Voltar");
+            System.out.print("Escolha uma opcao: ");
+            
+            try {
+                opcao = scanner.nextInt();
+                scanner.nextLine();
+                
+                switch (opcao) {
+                    case 1:
+                        System.out.print("Digite o valor a adicionar: ");
+                        lista.adicionar(lerValor());
+                        System.out.println("Elemento adicionado.");
+                        break;
+                    case 2:
+                        System.out.print("Digite o indice a remover (0 a " + (lista.getTamanho() - 1) + "): ");
+                        int valorRemovido = lista.removerPorIndice(lerValor());
+                        if (valorRemovido != -1) {
+                            System.out.println("Elemento removido: " + valorRemovido);
+                        }
+                        break;
+                    case 3:
+                        lista.mostrar();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opcao invalida.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada invalida. Digite um numero.");
+                scanner.nextLine();
+                opcao = -1;
+            }
+        } while (opcao != 0);
+    }
+
+    private static void menuPilha() {
+        int opcao;
+        do {
+            System.out.println("\n--- MENU PILHA (LIFO) ---");
+            System.out.println("1. Empilhar (Push)");
+            System.out.println("2. Desempilhar (Pop)");
+            System.out.println("3. Ver Topo (Peek)");
+            System.out.println("4. Exibir Pilha");
+            System.out.println("0. Voltar");
+            System.out.print("Escolha uma opcao: ");
+            
+            try {
+                opcao = scanner.nextInt();
+                scanner.nextLine();
+                
+                switch (opcao) {
+                    case 1:
+                        System.out.print("Digite o valor a empilhar: ");
+                        pilha.empilhar(lerValor());
+                        System.out.println("Elemento empilhado.");
+                        break;
+                    case 2:
+                        int valorPop = pilha.desempilhar();
+                        if (valorPop != -1) {
+                            System.out.println("Elemento desempilhado: " + valorPop);
+                        } else {
+                            System.out.println("Pilha vazia! Nao e possivel desempilhar.");
+                        }
+                        break;
+                    case 3:
+                        int valorPeek = pilha.verTopo();
+                        if (valorPeek != -1) {
+                            System.out.println("Topo da Pilha: " + valorPeek);
+                        } else {
+                            System.out.println("Pilha vazia!");
+                        }
+                        break;
+                    case 4:
+                        pilha.mostrar();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opcao invalida.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada invalida. Digite um numero.");
+                scanner.nextLine();
+                opcao = -1;
+            }
+        } while (opcao != 0);
+    }
+
+    private static void menuFila() {
+        int opcao;
+        do {
+            System.out.println("\n--- MENU FILA (FIFO) ---");
+            System.out.println("1. Enfileirar (Enqueue)");
+            System.out.println("2. Desenfileirar (Dequeue)");
+            System.out.println("3. Ver Inicio (Peek)");
+            System.out.println("4. Exibir Fila");
+            System.out.println("0. Voltar");
+            System.out.print("Escolha uma opcao: ");
+            
+            try {
+                opcao = scanner.nextInt();
+                scanner.nextLine();
+                
+                switch (opcao) {
+                    case 1:
+                        System.out.print("Digite o valor a enfileirar: ");
+                        fila.enfileirar(lerValor());
+                        System.out.println("Elemento enfileirado.");
+                        break;
+                    case 2:
+                        int valorDequeue = fila.desenfileirar();
+                        if (valorDequeue != -1) {
+                            System.out.println("Elemento desenfileirado: " + valorDequeue);
+                        } else {
+                            System.out.println("Fila vazia! Nao e possivel desenfileirar.");
+                        }
+                        break;
+                    case 3:
+                        int valorPeek = fila.verInicio();
+                        if (valorPeek != -1) {
+                            System.out.println("Inicio da Fila: " + valorPeek);
+                        } else {
+                            System.out.println("Fila vazia!");
+                        }
+                        break;
+                    case 4:
+                        fila.mostrar();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opcao invalida.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada invalida. Digite um numero.");
+                scanner.nextLine();
+                opcao = -1;
+            }
+        } while (opcao != 0);
+    }
+}
