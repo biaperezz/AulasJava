@@ -1,37 +1,47 @@
 1- Implemente uma classe Lista que use um vetor de inteiros para armazenar até 5 elementos.
 Adicione os métodos inserir(int valor) e mostrar().
 
+package Estruturas;
+
 public class Lista {
-    private int[] elementos = new int[5]; 
+    private int[] elementos = new int[5];
     private int tamanho = 0;
 
     public void inserir(int valor) {
         if (tamanho < elementos.length) {
             elementos[tamanho] = valor;
             tamanho++;
+            System.out.println("-> Inserido " + valor + " na posição " + (tamanho - 1));
         } else {
             System.out.println("Lista cheia! Não é possível inserir mais elementos.");
         }
     }
 
-    public void mostrar() {
-        System.out.print("Elementos da lista: ");
-        for (int i = 0; i < tamanho; i++) {
-            System.out.print(elementos[i] + " ");
+    public int removerPorIndice(int indice) {
+        if (indice < 0 || indice >= tamanho) {
+            return -1;
         }
-        System.out.println();
+        int valorRemovido = elementos[indice];
+        for (int i = indice; i < tamanho - 1; i++) {
+            elementos[i] = elementos[i + 1];
+        }
+        tamanho--;
+        return valorRemovido;
     }
 
-    public static void main(String[] args) {
-        Lista lista = new Lista();
+    public int getTamanho() {
+        return tamanho;
+    }
 
-        lista.inserir(10);
-        lista.inserir(20);
-        lista.inserir(30);
-        lista.inserir(40);
-        lista.inserir(50);
-        lista.inserir(60);
-
-        lista.mostrar();
+    public void mostrar() {
+        System.out.print("Lista: ");
+        if (tamanho == 0) {
+            System.out.println("Vazia");
+            return;
+        }
+        for (int i = 0; i < tamanho; i++) {
+            System.out.print(elementos[i] + (i < tamanho - 1 ? " | " : ""));
+        }
+        System.out.println();
     }
 }
