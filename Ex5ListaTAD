@@ -1,14 +1,13 @@
 5- Crie uma classe Principal que permita testar as classes Lista, Pilha e Fila com um menu interativo.
 
-package PilhaEx;
+package Estruturas;
 
 import java.util.Scanner;
-import java.lang.NumberFormatException;
 
 public class Principal {
 
     private static final Scanner scanner = new Scanner(System.in);
-    private static final ListaSimples lista = new ListaSimples();
+    private static final Lista lista = new Lista();
     private static final Pilha pilha = new Pilha();
     private static final Fila fila = new Fila();
 
@@ -20,22 +19,11 @@ public class Principal {
             opcao = lerValorInt();
 
             switch (opcao) {
-                case 1:
-                    menuLista();
-                    break;
-                case 2:
-                    menuPilha();
-                    break;
-                case 3:
-                    menuFila();
-                    break;
-                case 0:
-                    System.out.println("\nPrograma encerrado. Ate mais!");
-                    break;
-                default:
-                    if (opcao != -1) {
-                        System.out.println("\nOpcao invalida. Tente novamente.");
-                    }
+                case 1 -> menuLista();
+                case 2 -> menuPilha();
+                case 3 -> menuFila();
+                case 0 -> System.out.println("\nPrograma encerrado. Até mais!");
+                default -> System.out.println("Opção inválida. Tente novamente.");
             }
         } while (opcao != 0);
 
@@ -46,69 +34,105 @@ public class Principal {
         System.out.println("\n==================================");
         System.out.println("       TESTE DE ESTRUTURAS        ");
         System.out.println("==================================");
-        System.out.println("1. Testar Lista Simples (Max 5)");
-        System.out.println("2. Testar Pilha (Max 5)");
-        System.out.println("3. Testar Fila (Max 5)");
+        System.out.println("1. Testar Lista");
+        System.out.println("2. Testar Pilha");
+        System.out.println("3. Testar Fila");
         System.out.println("0. Sair");
-        System.out.print("Escolha uma opcao: ");
+        System.out.print("Escolha uma opção: ");
     }
 
     private static int lerValorInt() {
         try {
-            String input = scanner.nextLine();
-            return Integer.parseInt(input);
+            return Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
             return -1;
         }
     }
 
+    // ---------- MENU LISTA ----------
     private static void menuLista() {
         int opcao;
         do {
             System.out.println("\n--- MENU LISTA ---");
             System.out.println("1. Inserir elemento");
-            System.out.println("2. Remover elemento (por indice)");
-            System.out.println("3. Exibir Lista");
+            System.out.println("2. Remover por índice");
+            System.out.println("3. Mostrar lista");
             System.out.println("0. Voltar");
-            System.out.print("Escolha uma opcao: ");
-            
+            System.out.print("Escolha: ");
             opcao = lerValorInt();
-            
+
             switch (opcao) {
-                case 1:
-                    System.out.print("Digite o valor a inserir: ");
-                    int valorInserir = lerValorInt();
-                    if (valorInserir != -1) {
-                        lista.inserir(valorInserir);
-                    }
-                    break;
-                case 2:
-                    if (lista.getTamanho() > 0) {
-                        System.out.print("Digite o indice a remover (0 a " + (lista.getTamanho() - 1) + "): ");
-                        int indice = lerValorInt();
-                        if (indice != -1) {
-                            int valorRemovido = lista.removerPorIndice(indice);
-                            if (valorRemovido != -1) {
-                                System.out.println("-> Elemento removido: " + valorRemovido);
-                            } else {
-                                System.out.println("Indice invalido ou Lista vazia.");
-                            }
-                        }
+                case 1 -> {
+                    System.out.print("Digite o valor: ");
+                    int valor = lerValorInt();
+                    lista.inserir(valor);
+                }
+                case 2 -> {
+                    System.out.print("Digite o índice a remover: ");
+                    int indice = lerValorInt();
+                    int removido = lista.removerPorIndice(indice);
+                    if (removido != -1) {
+                        System.out.println("-> Removido: " + removido);
                     } else {
-                        System.out.println("Lista vazia. Nao ha o que remover.");
+                        System.out.println("Índice inválido!");
                     }
-                    break;
-                case 3:
-                    lista.mostrar();
-                    break;
-                case 0:
-                    break;
-                default:
-                    if (opcao != -1) {
-                        System.out.println("Opcao invalida.");
-                    }
+                }
+                case 3 -> lista.mostrar();
+                case 0 -> {}
+                default -> System.out.println("Opção inválida.");
             }
         } while (opcao != 0);
     }
 
-    private static void
+    // ---------- MENU PILHA ----------
+    private static void menuPilha() {
+        int opcao;
+        do {
+            System.out.println("\n--- MENU PILHA ---");
+            System.out.println("1. Empilhar");
+            System.out.println("2. Desempilhar");
+            System.out.println("3. Mostrar pilha");
+            System.out.println("0. Voltar");
+            System.out.print("Escolha: ");
+            opcao = lerValorInt();
+
+            switch (opcao) {
+                case 1 -> {
+                    System.out.print("Digite o valor: ");
+                    int valor = lerValorInt();
+                    pilha.empilhar(valor);
+                }
+                case 2 -> pilha.desempilhar();
+                case 3 -> pilha.mostrar();
+                case 0 -> {}
+                default -> System.out.println("Opção inválida.");
+            }
+        } while (opcao != 0);
+    }
+
+    // ---------- MENU FILA ----------
+    private static void menuFila() {
+        int opcao;
+        do {
+            System.out.println("\n--- MENU FILA ---");
+            System.out.println("1. Enfileirar");
+            System.out.println("2. Desenfileirar");
+            System.out.println("3. Mostrar fila");
+            System.out.println("0. Voltar");
+            System.out.print("Escolha: ");
+            opcao = lerValorInt();
+
+            switch (opcao) {
+                case 1 -> {
+                    System.out.print("Digite o valor: ");
+                    int valor = lerValorInt();
+                    fila.enfileirar(valor);
+                }
+                case 2 -> fila.desenfileirar();
+                case 3 -> fila.mostrar();
+                case 0 -> {}
+                default -> System.out.println("Opção inválida.");
+            }
+        } while (opcao != 0);
+    }
+}
