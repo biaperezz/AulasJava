@@ -1,54 +1,49 @@
 3- Implemente uma classe Fila que use um vetor de inteiros para simular uma fila de até 5 posições.
 Inclua os métodos enfileirar(int valor) e desenfileirar().
-package PilhaEx;
+
+package Estruturas;
 
 public class Fila {
-	private final int CAPACIDADE = 5;
-	private int[] elementos = new int[CAPACIDADE];
-	private int inicio = 0;
-	private int fim = 0;
-	private int tamanho = 0;
+    private final int CAPACIDADE = 5;
+    private int[] elementos = new int[CAPACIDADE];
+    private int inicio = 0;
+    private int fim = 0;
+    private int tamanho = 0;
 
-	public void enfileirar(int valor) {
-		if (tamanho < elementos.length) {
-			elementos[fim] = valor;
-			fim = (fim + 1) % elementos.length;
-			tamanho++;
-			System.out.println("-> Enfileirado " + valor + " no final.");
-		} else {
-			System.out.println("A Fila esta cheia!");
-		}
-	}
+    public void enfileirar(int valor) {
+        if (tamanho < CAPACIDADE) {
+            elementos[fim] = valor;
+            fim = (fim + 1) % CAPACIDADE;
+            tamanho++;
+            System.out.println("-> Enfileirado " + valor);
+        } else {
+            System.out.println("A fila está cheia!");
+        }
+    }
 
-	public int desenfileirar() {
-		if (tamanho > 0) {
-			int valor = elementos[inicio];
-			inicio = (inicio + 1) % elementos.length;
-			tamanho--;
-			return valor;
-		} else {
-			return -1;
-		}
-	}
+    public int desenfileirar() {
+        if (tamanho > 0) {
+            int valor = elementos[inicio];
+            inicio = (inicio + 1) % CAPACIDADE;
+            tamanho--;
+            System.out.println("-> Desenfileirado " + valor);
+            return valor;
+        } else {
+            System.out.println("A fila está vazia!");
+            return -1;
+        }
+    }
 
-	public int verInicio() {
-		if (tamanho > 0) {
-			return elementos[inicio];
-		} else {
-			return -1;
-		}
-	}
-
-	public void mostrar() {
-		System.out.print("Fila [Inicio -> Fim]: ");
-		if (tamanho == 0) {
-			System.out.println("Vazia");
-			return;
-		}
-		for (int i = 0; i < tamanho; i++) {
-			int indice = (inicio + i) % elementos.length;
-			System.out.print(elementos[indice] + (i < tamanho - 1 ? " | " : ""));
-		}
-		System.out.println();
-	}
+    public void mostrar() {
+        System.out.print("Fila (início -> fim): ");
+        if (tamanho == 0) {
+            System.out.println("Vazia");
+            return;
+        }
+        for (int i = 0; i < tamanho; i++) {
+            int indice = (inicio + i) % CAPACIDADE;
+            System.out.print(elementos[indice] + (i < tamanho - 1 ? " | " : ""));
+        }
+        System.out.println();
+    }
 }
